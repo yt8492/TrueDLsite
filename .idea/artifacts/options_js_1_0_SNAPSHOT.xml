@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="options-js-1.0-SNAPSHOT">
+    <output-path>$PROJECT_DIR$/options/build/libs</output-path>
+    <root id="archive" name="options-js-1.0-SNAPSHOT.jar">
+      <element id="module-output" name="PeacefulInternet.options.jsMain" />
+    </root>
+  </artifact>
+</component>

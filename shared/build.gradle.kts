@@ -12,9 +12,6 @@ repositories {
 kotlin {
     js {
         browser {
-            webpackTask {
-                mainOutputFileName.set("content.js")
-            }
         }
         binaries.executable()
     }
@@ -22,7 +19,6 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
-                implementation(project(":shared"))
                 implementation(kotlin("stdlib-js"))
             }
         }

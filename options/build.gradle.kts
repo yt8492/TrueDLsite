@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 group = "com.yt8492"
@@ -13,7 +14,7 @@ kotlin {
     js {
         browser {
             webpackTask {
-                mainOutputFileName.set("content.js")
+                mainOutputFileName.set("popup.js")
             }
         }
         binaries.executable()
@@ -24,6 +25,7 @@ kotlin {
             dependencies {
                 implementation(project(":shared"))
                 implementation(kotlin("stdlib-js"))
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
             }
         }
     }
