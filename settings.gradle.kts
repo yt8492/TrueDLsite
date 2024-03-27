@@ -1,2 +1,2 @@
 rootProject.name = "PeacefulInternet"
-include(":content", ":options", ":shared")
+include(":content", ":popup", ":shared")

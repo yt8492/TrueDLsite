@@ -1,6 +1,5 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.9.22"
 }
 
 group = "com.yt8492"
@@ -25,7 +24,6 @@ kotlin {
             dependencies {
                 implementation(project(":shared"))
                 implementation(kotlin("stdlib-js"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
             }
         }
     }
