@@ -13,7 +13,7 @@ kotlin {
     js {
         browser {
             webpackTask {
-                mainOutputFileName.set("content.js")
+                mainOutputFileName.set("option.js")
             }
         }
         binaries.executable()
@@ -24,7 +24,6 @@ kotlin {
             dependencies {
                 implementation(project(":shared"))
                 implementation(kotlin("stdlib-js"))
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-js:1.0.0-pre.721")
             }
         }
     }
