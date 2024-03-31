@@ -1,41 +1,64 @@
-import js.objects.Object
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.w3c.dom.MutationObserver
 import org.w3c.dom.MutationObserverInit
 import org.w3c.dom.Node
+import org.w3c.dom.asList
 
-lateinit var replaceList: List<Pair<Regex, String>>
+val replaceWordList = listOf(
+    """ざぁ～こ♡""".toRegex() to "メスガキ",
+    """合意なし""".toRegex() to "レイプ",
+    """つるぺた""".toRegex() to "ロリ",
+    """つるぺたババア""".toRegex() to "ロリババア",
+    """閉じ込め""".toRegex() to "監禁",
+    """超ひどい""".toRegex() to "鬼畜",
+    """逆レ(?!イプ)""".toRegex() to "逆レイプ",
+    """命令/無理矢理""".toRegex() to "強制/無理矢理",
+    """近親もの""".toRegex() to "近親相姦",
+    """責め苦""".toRegex() to "拷問",
+    """トランス/暗示""".toRegex() to "催眠",
+    """畜えち""".toRegex() to "獣姦",
+    """精神支配""".toRegex() to "洗脳",
+    """秘密さわさわ""".toRegex() to "痴漢",
+    """しつけ""".toRegex() to "調教",
+    """下僕""".toRegex() to "奴隷",
+    """屈辱""".toRegex() to "凌辱",
+    """回し""".toRegex() to "輪姦",
+    """虫えっち""".toRegex() to "虫姦",
+    """モブおじさん""".toRegex() to "モブ姦",
+    """異種えっち""".toRegex() to "異種姦",
+    """機械責め""".toRegex() to "機械姦",
+    """すやすやえっち""".toRegex() to "睡眠姦",
+    """トランス/暗示ボイス""".toRegex() to "催眠音声",
+)
+
+val replaceClassList = listOf(
+    "search_tag_items",
+    "left_refine_list",
+    "main_genre",
+    "list_content_text",
+)
 
 fun main() {
     val body = document.body ?: return
     val config = MutationObserverInit(childList = true, subtree = true)
     window.onload = {
-        chrome.runtime.onMessage.addListener { message, _, _ ->
-            console.log(message)
-            val replaceMap = buildMap {
-                Object.keys(message).forEach {
-                    put(it, message[it])
-                }
-            }
-            console.log("replaceMap: $replaceMap")
-            replaceList = replaceMap.map {
-                it.key.toRegex() to it.value
-            }
-            replaceText(body)
-            val observer = MutationObserver { mutationRecords, observer ->
-                mutationRecords.forEach { mutation ->
-                    console.log(mutation)
-                    if (mutation.type == "childList") {
-                        observer.disconnect()
-                        replaceText(mutation.target)
-                        observer.observe(body, config)
+        replaceText(body)
+        val observer = MutationObserver { mutationRecords, observer ->
+            mutationRecords.forEach { mutation ->
+                console.log(mutation)
+                if (mutation.type == "childList") {
+                    observer.disconnect()
+                    val elements = document.getElementsByClassName(replaceClassList.joinToString(","))
+                    elements.asList().forEach {
+                        console.log(it)
+                        replaceText(it)
                     }
+                    observer.observe(body, config)
                 }
             }
-            observer.observe(body, config)
-            true
         }
+        observer.observe(body, config)
     }
 }
 
@@ -53,7 +76,7 @@ fun replaceChild(next: Node?, node: Node?): Node? {
     when (node.nodeType) {
         Node.TEXT_NODE -> {
             val replaced = document.createTextNode(
-                replaceList.fold(node.textContent ?: "") { acc, pair ->
+                replaceWordList.fold(node.textContent ?: "") { acc, pair ->
                     acc.replace(pair.first, pair.second)
                 }
             )

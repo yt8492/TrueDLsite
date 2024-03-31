@@ -22,9 +22,7 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
-                implementation(project(":shared"))
                 implementation(kotlin("stdlib-js"))
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-js:1.0.0-pre.721")
             }
         }
     }
