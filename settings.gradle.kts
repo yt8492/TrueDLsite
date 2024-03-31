@@ -1,2 +1,2 @@
-rootProject.name = "PeacefulDLsite"
+rootProject.name = "TrueDLsite"
 include(":content", ":extension")
