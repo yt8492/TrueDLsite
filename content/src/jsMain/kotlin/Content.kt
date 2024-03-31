@@ -43,22 +43,26 @@ fun main() {
     val body = document.body ?: return
     val config = MutationObserverInit(childList = true, subtree = true)
     window.onload = {
-        replaceText(body)
+        replaceElements()
         val observer = MutationObserver { mutationRecords, observer ->
             mutationRecords.forEach { mutation ->
                 console.log(mutation)
                 if (mutation.type == "childList") {
                     observer.disconnect()
-                    val elements = document.getElementsByClassName(replaceClassList.joinToString(","))
-                    elements.asList().forEach {
-                        console.log(it)
-                        replaceText(it)
-                    }
+                    replaceElements()
                     observer.observe(body, config)
                 }
             }
         }
         observer.observe(body, config)
+    }
+}
+
+fun replaceElements() {
+    val elements = document.getElementsByClassName(replaceClassList.joinToString(","))
+    elements.asList().forEach {
+        console.log(it)
+        replaceText(it)
     }
 }
 

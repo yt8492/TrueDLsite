@@ -3,7 +3,7 @@ tasks.create<Copy>("build") {
     dependsOn(
         ":content:jsBrowserProductionWebpack",
     )
-    into("generated") {
+    into("TrueDLsite") {
         from("${rootProject.project(":content").buildDir}/dist/js/productionExecutable")
         from("src/resources")
     }
