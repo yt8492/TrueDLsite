@@ -1,5 +1,4 @@
 import kotlinx.browser.document
-import kotlinx.browser.window
 import org.w3c.dom.MutationObserver
 import org.w3c.dom.MutationObserverInit
 import org.w3c.dom.Node
@@ -33,33 +32,32 @@ val replaceWordList = listOf(
 )
 
 val replaceClassList = listOf(
-    "search_tag_items",
-    "left_refine_list",
-    "main_genre",
-    "list_content_text",
+    ".search_tag",
+    ".search_tag_items",
+    ".left_refine_list",
+    ".main_genre",
+    ".list_content_text",
 )
 
 fun main() {
     val body = document.body ?: return
     val config = MutationObserverInit(childList = true, subtree = true)
-    window.onload = {
-        replaceElements()
-        val observer = MutationObserver { mutationRecords, observer ->
-            mutationRecords.forEach { mutation ->
-                console.log(mutation)
-                if (mutation.type == "childList") {
-                    observer.disconnect()
-                    replaceElements()
-                    observer.observe(body, config)
-                }
+    replaceElements()
+    val observer = MutationObserver { mutationRecords, observer ->
+        mutationRecords.forEach { mutation ->
+            if (mutation.type == "childList") {
+                observer.disconnect()
+                replaceElements()
+                observer.observe(body, config)
             }
         }
-        observer.observe(body, config)
     }
+    observer.observe(body, config)
 }
 
 fun replaceElements() {
-    val elements = document.getElementsByClassName(replaceClassList.joinToString(","))
+    val elements = document.querySelectorAll(replaceClassList.joinToString(","))
+    console.log("elements: $elements")
     elements.asList().forEach {
         console.log(it)
         replaceText(it)

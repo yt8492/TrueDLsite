@@ -2,7 +2,7 @@
   <artifact type="jar" name="content-js-1.0-SNAPSHOT">
     <output-path>$PROJECT_DIR$/content/build/libs</output-path>
     <root id="archive" name="content-js-1.0-SNAPSHOT.jar">
-      <element id="module-output" name="PeacefulInternet.content.jsMain" />
+      <element id="module-output" name="TrueDLsite.content.jsMain" />
     </root>
   </artifact>
 </component>
