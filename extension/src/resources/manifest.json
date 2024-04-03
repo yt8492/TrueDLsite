@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "True DLsite",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "DLsiteのジャンル表記を元に戻します",
   "content_scripts": [
     {
